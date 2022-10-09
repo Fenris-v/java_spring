@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS books;
+
+CREATE TABLE books
+(
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    authorId INT          NOT NULL,
+    title    VARCHAR(250) NOT NULL,
+    priceOld VARCHAR(250) DEFAULT NULL,
+    price    VARCHAR(250) DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS authors;
+
+CREATE TABLE authors
+(
+    id   INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(250) NOT NULL UNIQUE
+);
+
+ALTER TABLE IF EXISTS books
+    ADD CONSTRAINT author_book_fk FOREIGN KEY (authorId) REFERENCES authors ON DELETE CASCADE;
