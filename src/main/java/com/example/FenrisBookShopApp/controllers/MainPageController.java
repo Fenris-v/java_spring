@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Date;
+
 @Controller
 public class MainPageController {
     private final BookService bookService;
@@ -19,6 +21,9 @@ public class MainPageController {
     @GetMapping("")
     public String mainPage(@NotNull Model model) {
         model.addAttribute("bookData", bookService.getBooksData());
+        model.addAttribute("serverTime", new Date());
+        model.addAttribute("placeholderTextPart2", "SERVER");
+        model.addAttribute("messageTemplate", "searchbar.placeholder2");
         return "index";
     }
 
