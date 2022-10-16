@@ -21,9 +21,10 @@ public class AuthorService {
         this.jbdcTemlate = jbdcTemlate;
     }
 
-    public TreeMap<Character, TreeSet<Author>> getAuthorsData() {
+    public TreeMap<Character, TreeSet<Author>> getAuthorsMap() {
         String sql = "SELECT * FROM authors";
         List<Author> authors = jbdcTemlate.query(sql, (ResultSet rs, int rowNum) -> makeAuthors(rs));
+
         return groupAuthors(authors);
     }
 
@@ -31,7 +32,8 @@ public class AuthorService {
     private Author makeAuthors(@NotNull ResultSet rs) throws SQLException {
         Author author = new Author();
         author.setId(rs.getInt("id"));
-        author.setName(rs.getString("name"));
+        author.setFirstName(rs.getString("first_name"));
+        author.setLastName(rs.getString("last_name"));
         return author;
     }
 
@@ -42,7 +44,7 @@ public class AuthorService {
     }
 
     private void createGroupByFirstLetter(@NotNull Author author) {
-        char firstLetter = author.getName().charAt(0);
+        char firstLetter = Character.toUpperCase(author.getFirstName().charAt(0));
         if (!authorsMap.containsKey(firstLetter)) {
             authorsMap.put(firstLetter, new TreeSet<>());
         }
