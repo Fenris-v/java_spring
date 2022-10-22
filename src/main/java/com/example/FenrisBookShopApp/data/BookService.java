@@ -26,13 +26,21 @@ public class BookService {
     }
 
     @NotNull
-    private static Book makeBook(@NotNull ResultSet rs) throws SQLException {
+    private Book makeBook(@NotNull ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setId(rs.getInt("id"));
-        book.setAuthor(rs.getString("first_name") + ' ' + rs.getString("last_name"));
+        book.setAuthor(getAuthorByAuthorId(rs.getInt("author_id")));
         book.setTitle(rs.getString("title"));
         book.setPriceOld(rs.getString("price_old"));
         book.setPrice(rs.getString("price"));
         return book;
+    }
+
+    private String getAuthorByAuthorId(int author_id) {
+        String sql = "SELECT * FROM authors WHERE authors.id=" + author_id;
+        List<String> authors = jbdcTemlate
+                .query(sql, (ResultSet rs, int rowNum) -> rs.getString("first_name") + " " + rs.getString("last_name"));
+
+        return authors.get(0);
     }
 }
