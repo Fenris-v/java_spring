@@ -1,50 +1,85 @@
-insert into books (author_id, title, price_old, price)
-values (1, 'exploit real-time e-commerce', '$203.23', '$43.37');
-insert into books (author_id, title, price_old, price)
-values (2, 'utilize real-time interfaces', '$260.31', '$35.96');
-insert into books (author_id, title, price_old, price)
-values (3, 'extend strategic e-services', '$272.00', '$151.04');
-insert into books (author_id, title, price_old, price)
-values (4, 'iterate integrated solutions', '$271.58', '$141.40');
-insert into books (author_id, title, price_old, price)
-values (5, 'cultivate magnetic e-commerce', '$278.43', '$54.44');
-insert into books (author_id, title, price_old, price)
-values (6, 'architect vertical ROI', '$282.54', '$102.61');
-insert into books (author_id, title, price_old, price)
-values (7, 'disintermediate extensible architectures', '$295.38', '$181.27');
-insert into books (author_id, title, price_old, price)
-values (8, 'extend leading-edge methodologies', '$283.08', '$97.96');
-insert into books (author_id, title, price_old, price)
-values (9, 'integrate one-to-one systems', '$258.51', '$52.25');
-insert into books (author_id, title, price_old, price)
-values (10, 'revolutionize 24/7 infrastructures', '$260.79', '$33.69');
-insert into books (author_id, title, price_old, price)
-values (11, 'enhance innovative e-services', '$256.54', '$160.98');
-insert into books (author_id, title, price_old, price)
-values (12, 'maximize 24/365 e-tailers', '$262.07', '$34.06');
-insert into books (author_id, title, price_old, price)
-values (13, 'scale integrated architectures', '$257.66', '$32.97');
-insert into books (author_id, title, price_old, price)
-values (14, 'e-enable frictionless web services', '$288.19', '$90.52');
-insert into books (author_id, title, price_old, price)
-values (15, 'strategize B2B channels', '$232.27', '$44.83');
-insert into books (author_id, title, price_old, price)
-values (16, 'syndicate compelling deliverables', '$287.45', '$101.89');
-insert into books (author_id, title, price_old, price)
-values (17, 'utilize bleeding-edge users', '$281.37', '$146.21');
-insert into books (author_id, title, price_old, price)
-values (18, 'cultivate 24/365 networks', '$270.99', '$184.76');
-insert into books (author_id, title, price_old, price)
-values (19, 'embrace plug-and-play platforms', '$278.36', '$77.71');
-insert into books (author_id, title, price_old, price)
-values (20, 'target innovative paradigms', '$298.94', '$130.01');
-insert into books (author_id, title, price_old, price)
-values (21, 'generate open-source e-business', '$276.57', '$113.25');
-insert into books (author_id, title, price_old, price)
-values (22, 'implement user-centric e-markets', '$254.70', '$115.31');
-insert into books (author_id, title, price_old, price)
-values (23, 'utilize magnetic supply-chains', '$279.70', '$77.86');
-insert into books (author_id, title, price_old, price)
-values (24, 'e-enable dot-com supply-chains', '$297.83', '$110.15');
-insert into books (author_id, title, price_old, price)
-values (25, 'facilitate efficient eyeballs', '$232.30', '$131.48');
+insert into authors (first_name, last_name)
+values ('Aldwin', 'Maddison');
+insert into authors (first_name, last_name)
+values ('Marlene', 'Claydon');
+insert into authors (first_name, last_name)
+values ('Maurits', 'Brende');
+insert into authors (first_name, last_name)
+values ('Constantine', 'Garton');
+insert into authors (first_name, last_name)
+values ('Kali', 'Barends');
+insert into authors (first_name, last_name)
+values ('Courtnay', 'Farleigh');
+insert into authors (first_name, last_name)
+values ('Yorke', 'MacDwyer');
+insert into authors (first_name, last_name)
+values ('Cristiano', 'Peasey');
+insert into authors (first_name, last_name)
+values ('Tod', 'Woolaston');
+insert into authors (first_name, last_name)
+values ('Jen', 'Cunney');
+insert into authors (first_name, last_name)
+values ('Shalom', 'Rodbourne');
+insert into authors (first_name, last_name)
+values ('Collin', 'Spaughton');
+insert into authors (first_name, last_name)
+values ('Honoria', 'Matthesius');
+insert into authors (first_name, last_name)
+values ('Daron', 'Scarce');
+insert into authors (first_name, last_name)
+values ('Khalil', 'Arnull');
+insert into authors (first_name, last_name)
+values ('Tisha', 'Dauber');
+insert into authors (first_name, last_name)
+values ('Tedd', 'Burles');
+insert into authors (first_name, last_name)
+values ('Randie', 'Andreas');
+insert into authors (first_name, last_name)
+values ('Karlene', 'Granger');
+insert into authors (first_name, last_name)
+values ('Major', 'Mattersley');
+insert into authors (first_name, last_name)
+values ('Hatti', 'Skelbeck');
+
+insert into books (price, price_old, title, author_id)
+values (1642, 1843, 'Bitwolf', 1);
+insert into books (price, price_old, title, author_id)
+values (707, 1451, 'Tres-Zap', 2);
+insert into books (price, price_old, title, author_id)
+values (1590, 2445, 'Daltfresh', 3);
+insert into books (price, price_old, title, author_id)
+values (2951, 2425, 'Namfix', 4);
+insert into books (price, price_old, title, author_id)
+values (2267, 2139, 'Sonsing', 5);
+insert into books (price, price_old, title, author_id)
+values (2403, 1007, 'Bytecard', 6);
+insert into books (price, price_old, title, author_id)
+values (2271, 3149, 'Tempsoft', 7);
+insert into books (price, price_old, title, author_id)
+values (2855, 3279, 'Holdlamis', 8);
+insert into books (price, price_old, title, author_id)
+values (1857, 1329, 'Fix San', 9);
+insert into books (price, price_old, title, author_id)
+values (2569, 1961, 'Ventosanzap', 10);
+insert into books (price, price_old, title, author_id)
+values (1429, 3820, 'Toughjoyfax', 11);
+insert into books (price, price_old, title, author_id)
+values (1204, 1226, 'Sub-Ex', 12);
+insert into books (price, price_old, title, author_id)
+values (1838, 2604, 'Bigtax', 13);
+insert into books (price, price_old, title, author_id)
+values (661, 2748, 'Rank', 14);
+insert into books (price, price_old, title, author_id)
+values (2202, 2667, 'Matsoft', 15);
+insert into books (price, price_old, title, author_id)
+values (1666, 1960, 'Konklux', 16);
+insert into books (price, price_old, title, author_id)
+values (2855, 1371, 'Konklab', 17);
+insert into books (price, price_old, title, author_id)
+values (1409, 2659, 'Fintone', 18);
+insert into books (price, price_old, title, author_id)
+values (862, 2119, 'Prodder', 19);
+insert into books (price, price_old, title, author_id)
+values (2954, 1399, 'Zontrax', 20);
+insert into books (price, price_old, title, author_id)
+values (2307, 3157, 'Lotstring', 21);
