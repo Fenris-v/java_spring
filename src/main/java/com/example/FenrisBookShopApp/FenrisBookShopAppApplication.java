@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class FenrisBookShopAppApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(FenrisBookShopAppApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(FenrisBookShopAppApplication.class, args);
+    }
 }
