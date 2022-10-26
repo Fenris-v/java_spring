@@ -2,5 +2,5 @@ package com.example.FenrisBookShopApp.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 }

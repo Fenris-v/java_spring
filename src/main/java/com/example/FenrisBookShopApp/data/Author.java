@@ -5,8 +5,6 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
@@ -15,20 +13,29 @@ import java.util.List;
 public class Author implements Comparable<Author> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String firstName;
-    private String lastName;
+    private Long id;
 
-    @OneToMany(mappedBy = "author")
-    private List<Book> bookList = new ArrayList<>();
+    private String photo;
+
+    @Column(nullable = false)
+    private String slug;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+//    @OneToMany(mappedBy = "author")
+//    private List<Book> bookList = new ArrayList<>();
 
     @Override
     public String toString() {
-        return firstName + ' ' + lastName;
+        return name;
     }
 
     @Override
     public int compareTo(@NotNull Author author) {
-        return CharSequence.compare(firstName + ' ' + lastName, author.getFirstName() + ' ' + author.getLastName());
+        return CharSequence.compare(name, author.getName());
     }
 }
