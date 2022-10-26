@@ -19,8 +19,7 @@ public class Author implements Comparable<Author> {
     private String firstName;
     private String lastName;
 
-    @OneToMany
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "author")
     private List<Book> bookList = new ArrayList<>();
 
     @Override
