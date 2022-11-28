@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="Tag" th:fragment="genreTag(genreDto)">
+    <!--    <div th:text="${genreDto.genre.slug}"></div>-->
+    <a th:href="${#mvc.url('app.genres.show').arg(0, genreDto.slug).build()}">
+        <th:block th:text="${genreDto.name}"></th:block>
+        <span class="undefined-amount" th:text="'(' + ${genreDto.booksCount} + ')'">(134)</span>
+    </a>
+</div>
+</body>
+</html>

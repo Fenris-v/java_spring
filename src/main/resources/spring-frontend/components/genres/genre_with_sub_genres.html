@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="Tags" th:fragment="genresWithSubGenres(genreDto)">
+    <div class="Tags-title">
+        <div th:replace="~{components/genres/genre_tag :: genreTag(${genreDto})}"></div>
+    </div>
+    <th:block th:each="child : ${child.children}">
+        <div th:replace="~{components/genres/genre_tag :: genreTag(${child})}"></div>
+    </th:block>
+</div>
+</body>
+</html>
