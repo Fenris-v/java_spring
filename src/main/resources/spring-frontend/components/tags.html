@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="Tags" id="tags" th:fragment="tags(tags)">
+    <div th:each="tag : ${tags}"
+         th:class="'Tag ' + ${tag.used <= 30 ? 'Tag_xs' : ''} + ${tag.used > 35 && tag.used <= 40 ? 'Tag_md' : ''} + ${tag.used > 40 ? 'Tag_lg' : ''}">
+        <a th:href="${#mvc.url('app.tags.books').arg(0, tag.id).build()}" th:text="${tag.name}"></a>
+    </div>
+</div>

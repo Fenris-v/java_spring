@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::content}, #{title.authors})}">
+      th:replace="~{fragments/layout :: layout(~{::content}, #{title.authors})}">
 <body>
 <div class="Middle" th:fragment="content">
     <div class="wrap">
@@ -19,7 +19,9 @@
                             th:text="${#strings.toUpperCase(authorList.key)}"></h2>
                         <div class="Authors-letter">
                             <div class="Authors-item" th:each="author : ${authorList.value}">
-                                <a href="/authors/slug.html" th:text="${author.firstName + ' '+ author.lastName}"></a>
+                                <!--                                <a class="menu-link" th:href="${#mvc.url('app.main').build()}" th:text="#{menu.main}"></a>-->
+                                <a th:href="${#mvc.url('app.authors.show').arg(0, author.slug).build()}"
+                                   th:text="${author.name}"></a>
                             </div>
                         </div>
                     </div>

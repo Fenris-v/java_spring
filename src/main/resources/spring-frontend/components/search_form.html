@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="search" th:fragment="searchForm(searchQueryDto)">
+    <form class="form form_search" action="#" method="post" data-searchlimit="20" th:object="${searchQueryDto}">
+        <th:block th:if="${searchQueryDto != null}">
+            <th:block th:include="~{components/search_input :: searchInput(searchQueryDto)}"></th:block>
+        </th:block>
+
+        <th:block th:if="${searchQueryDto == null}">
+            <th:block th:include="~{components/search_input_empty :: searchInput()}"></th:block>
+        </th:block>
+
+        <button class="search-button" type="submit" name="search" id="search" th:text="#{search}"></button>
+    </form>
+</div>
+</body>
+</html>

@@ -10,7 +10,7 @@
 <![endif]-->
 <!--[if gt IE 9]><!-->
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      th:fragment="layout (content, title)"> <!--<![endif]-->
+      th:fragment="layout(content, title)"> <!--<![endif]-->
 <head th:replace="~{fragments/common_head_fragment :: head(${title})}"></head>
 <body class="Site">
 <!--if lt IE 8
@@ -23,7 +23,6 @@
       | для правильного отображения сайта.
   -->
 <header th:replace="~{fragments/common_header_fragment :: header}"></header>
-
 
 <div th:replace="${content}"></div>
 
