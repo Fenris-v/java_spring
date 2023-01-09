@@ -3,11 +3,11 @@ package com.example.FenrisBookShopApp.entities.book;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

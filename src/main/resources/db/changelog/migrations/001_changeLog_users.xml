@@ -1,0 +1,142 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="fenris" id="1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reg_time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="BIGINT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <sqlFile path="db/changelog/sqlScripts/users.sql"/>
+
+        <createTable tableName="book2user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="book2user_pkey"/>
+            </column>
+            <column name="time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="book2user" columnNames="book_id, user_id"
+                             constraintName="book2user_book_id_user_id_uindex"/>
+
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2user"
+                                 constraintName="book2user_books_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="books" validate="true"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="book2user"
+                                 constraintName="book2user_users_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+
+        <createTable tableName="carts">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="carts_pkey"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="carts"
+                                 constraintName="carts_users_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="carts"
+                                 constraintName="carts_books_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="books" validate="true"/>
+
+        <createTable tableName="deferred_books">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="deferred_books_pkey"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="deferred_books"
+                                 constraintName="deferred_books_users_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users" validate="true"/>
+
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="deferred_books"
+                                 constraintName="deferred_books_books_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="books" validate="true"/>
+
+        <createTable tableName="genres">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="genres_pkey"/>
+            </column>
+            <column name="parent_id" type="BIGINT"/>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <sqlFile path="db/changelog/sqlScripts/genres.sql"/>
+
+        <createTable tableName="book2genre">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="book2genre_pkey"/>
+            </column>
+            <column name="book_id" type="BIGINT"/>
+            <column name="genre_id" type="BIGINT"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="book_id, genre_id" constraintName="book2genre_book_id_genre_id_uindex"
+                             tableName="book2genre"/>
+
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="genres"
+                                 constraintName="genres_genres_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="SET NULL" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="genres" validate="true"/>
+
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book2genre"
+                                 constraintName="book2genre_books_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="books" validate="true"/>
+
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="book2genre"
+                                 constraintName="book2genre_genres_id_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="genres" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<button th:fragment="btn(book)" class="btn btn_danger btn_outline" data-sendstatus="UNLINK"
+        th:attr="data-bookid=${book.id}">
+    <span class="btn-icon">
+        <img src="/assets/img/icons/trash.svg" alt="trash.svg"/>
+    </span>
+    <span class="btn-content">Удалить</span>
+</button>
+</body>
+</html>

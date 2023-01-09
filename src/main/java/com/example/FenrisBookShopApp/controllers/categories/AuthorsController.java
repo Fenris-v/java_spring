@@ -9,12 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@Api(tags = "Authors")
-//@Tag(name = "Authors", description = "Authors data")
-@RequestMapping("authors")
 public class AuthorsController {
     private final AuthorService authorService;
     private final BookService bookService;
@@ -25,13 +21,14 @@ public class AuthorsController {
         this.bookService = bookService;
     }
 
-    @GetMapping(value = "", name = "app.authors.list")
+    @GetMapping(value = "authors", name = "app.authors.list")
     public String authorsPage(@NotNull Model model) {
         model.addAttribute("authorMap", authorService.getAuthorsMap());
+        model.addAttribute("isAuthorsPage", true);
         return "authors/index";
     }
 
-    @GetMapping(value = "{slug}", name = "app.authors.show")
+    @GetMapping(value = "authors/{slug}", name = "app.authors.show")
     public String author(@PathVariable("slug") String slug, @NotNull Model model) {
         AuthorEntity author = authorService.getAuthorBySlug(slug);
         model.addAttribute("author", author);

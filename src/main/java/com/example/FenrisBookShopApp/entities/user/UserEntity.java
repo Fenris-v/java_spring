@@ -1,10 +1,13 @@
 package com.example.FenrisBookShopApp.entities.user;
 
+import com.example.FenrisBookShopApp.entities.book.review.BookRateEntity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,7 +21,7 @@ public class UserEntity {
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String hash;
 
-    @Column(columnDefinition = "TIMESTAMP NOT NULL")
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private LocalDateTime regTime;
 
     @Column(columnDefinition = "INT NOT NULL")
@@ -26,4 +29,8 @@ public class UserEntity {
 
     @Column(columnDefinition = "VARCHAR(255) NOT NULL")
     private String name;
+
+    @OneToMany
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private List<BookRateEntity> rates = new ArrayList<>();
 }

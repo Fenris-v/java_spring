@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::content}, #{title.newBooks})}">
+<body>
+<div class="Middle" th:fragment="content">
+    <div class="wrap">
+        <main class="Middle-main">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs-item"><a href="/index.html">Главная</a>
+                </li>
+                <li class="breadcrumbs-item"><a href="/genres/index.html">Книги</a>
+                </li>
+                <li class="breadcrumbs-item breadcrumbs-item_current">
+                    <span>Мара и морок</span>
+                </li>
+            </ul>
+
+            <div class="Product">
+                <div class="ProductCard">
+                    <div class="ProductCard-look">
+                        <form id="imgForm" method="POST" enctype="multipart/form-data"
+                              th:action="${#mvc.url('app.book.upload_image').arg(0, book.slug).build()}">
+                            <div class="ProductCard-photo" id="uploadButton">
+                                <img th:src="${book.image}" alt="card.jpg"/>
+                            </div>
+                            <input type="file" name="file" id="dialog" style="display: none"/>
+                        </form>
+                    </div>
+                    <div class="ProductCard-desc">
+                        <div class="ProductCard-header">
+                            <h1 class="ProductCard-title" th:text="${book.title}"></h1>
+                            <div class="ProductCard-author">
+                                <span class="ProductCard-titleProp">Автор:</span>&#32;
+
+                                <th:block th:each="author : ${book.authors}">
+                                    <a th:href="${#mvc.url('app.authors.show').arg(0, author.slug).build()}"
+                                       th:text="${author.name}"></a>
+                                    <th:block th:unless="${book.authors.get(book.authors.size() - 1) == author}">,
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            <div th:replace="~{components/rating/rating :: rating(${avgRate}, ${countOfRates}, ${rateMap})}"></div>
+                            <div class="ProductCard-assessment">
+                                <span class="ProductCard-titleProp">Оцените книгу:</span>
+                                <span class="Rating Rating_input" th:attr="data-bookid=${book.id}">
+                                    <th:block th:each="i : ${#numbers.sequence(1, 5)}">
+                                        <span th:class="${'Rating-stars' + (rateByUser >= i ? ' Rating-star_view' : '')}">
+                                            <span th:replace="~{components/rating/star :: star(false)}"></span>
+                                            <input name="rating" type="radio" th:value="${i}"/>
+                                        </span>
+                                    </th:block>
+                                </span>
+                            </div>
+                            <div class="ProductCard-tags">
+                                <span class="ProductCard-titleProp">Тэги:</span>
+                                <th:block th:each="tag : ${book.tags}">
+                                    <a th:href="${#mvc.url('app.tags.books').arg(0, tag.id).build()}"
+                                       th:text="${tag.name}"></a>
+                                    <th:block
+                                            th:unless="${tag == book.tags.get(book.tags.size() - 1)}">,&#32;
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            <div class="ProductCard-cost"><span class="ProductCard-titleProp">Цена:</span>
+                                <span th:if="${book.priceWithDiscount}" class="ProductCard-priceOld"
+                                      th:text="${'₽' + book.price}"></span>
+                                <span class="ProductCard-price"
+                                      th:text="${'₽' + (book.priceWithDiscount ?: book.price)}"></span>
+                            </div>
+                            <!--+div.-info
+                            //+div.-cost
+                            //    +div.-price $55.00
+                            //    +div.-priceOld $115.00
+                            //+div.-compare
+                            //    +btn._default
+                            //        +img('change.svg','icons/card').-icon
+                            -->
+                        </div>
+                        <div class="ProductCard-text" th:text="${book.description}"></div>
+                        <div class="ProductCard-cart">
+                            <!--+div.-cartElement.-cartElement_amount-->
+                            <!--    +Amount._product-->
+                            <div class="ProductCard-cartElement">
+                                <th:block
+                                        th:replace="~{components/btns/to_postponed :: btn(${book})}"></th:block>
+                            </div>
+                            <div class="ProductCard-cartElement">
+                                <th:block th:replace="~{components/btns/to_cart :: btn(${book})}"></th:block>
+                            </div>
+                        </div>
+                        <div class="ProductCard-cart">
+                            <!--+div.-cartElement.-cartElement_amount-->
+                            <!--    +Amount._product-->
+                            <div class="ProductCard-cartElement"><a class="btn btn_primary btn_outline" href="#"><span
+                                    class="btn-icon"><img src="/assets/img/icons/download.svg"
+                                                          alt="download.svg"/></span><span
+                                    class="btn-content">Скачать</span></a>
+                            </div>
+                            <div class="ProductCard-cartElement">
+                                <button class="btn btn_primary btn_outline" data-sendstatus="ARCHIVED"
+                                        data-bookid="[1111]" data-btntype="check" data-btnradio="buyblock"
+                                        data-check="false" data-alttext="Вернуть из архива"><span class="btn-icon"><img
+                                        src="/assets/img/icons/archive.svg" alt="archive.svg"/></span><span
+                                        class="btn-content">В архив</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="popup">
+                            <p>Ссылки для скачивания</p>
+                            <div th:each="bookFile : ${book.files}">
+                                <a th:href="${#mvc.url('app.book.download_book').arg(0, bookFile.hash).build()}"
+                                   th:text="${bookFile.bookFileExtension}"></a>
+                            </div>
+                            <span id="popup__close" class="close">X</span>
+                        </div>
+
+                        <div id="overlay"></div>
+
+                        <!--+div.-cart-->
+                        <!--    //+div.-cartElement.-cartElement_amount-->
+                        <!--    //    +Amount._product-->
+                        <!--    +div.-cartElement-->
+                        <!--        +btn('button')(data-sendstatus='UNLINK' data-bookid="[1111]")._muted Вернуть из архива-->
+                    </div>
+                </div>
+
+                <div class="Product-comments">
+                    <div class="Product-comments-header">
+                        <h3 class="Product-comments-title">Отзывы</h3>
+                        <span class="Product-comments-amount" th:text="${reviews.size + ' отзывов'}"></span>
+                    </div>
+                </div>
+                <div th:replace="~{components/comments/comments :: comments(${reviews}, ${book})}"></div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

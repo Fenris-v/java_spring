@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class DocumentsController {
-    @GetMapping(value = "/documents", name = "app.documents.list")
+    @GetMapping(value = "documents", name = "app.documents.list")
     public String genresPage() {
         return "documents/index";
     }

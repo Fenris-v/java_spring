@@ -1,9 +1,9 @@
 package com.example.FenrisBookShopApp.entities.book.review;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,9 +22,9 @@ public class BookReviewLikeEntity {
     @Column(columnDefinition = "INT NOT NULL")
     private int userId;
 
-    @Column(columnDefinition = "TIMESTAMP NOT NULL")
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private LocalDateTime time;
 
     @Column(columnDefinition = "SMALLINT NOT NULL")
-    private short value;
+    private byte value;
 }

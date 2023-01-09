@@ -1,9 +1,8 @@
 package com.example.FenrisBookShopApp.entities.user;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Getter
 @Setter

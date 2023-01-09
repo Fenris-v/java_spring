@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="Comments" th:fragment="comments(reviews, book)">
+    <div th:replace="~{components/comments/comment_form :: commentForm(${book})}"></div>
+
+    <div class="Comment" th:each="review : ${reviews}">
+        <div class="Comment-column Comment-column_pict">
+            <div class="Comment-avatar"></div>
+        </div>
+
+        <div class="Comment-column">
+            <header class="Comment-header">
+                <div>
+                    <strong class="Comment-title" th:text="${review.user.name}"></strong>
+                    <span class="Comment-date" th:text="${#temporals.format(review.time, 'dd-MM-yyyy HH:mm')}"></span>
+                </div>
+            </header>
+            <div class="Comment-content">
+                <p th:text="${review.text}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

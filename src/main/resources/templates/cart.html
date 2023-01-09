@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::content}, #{title.cart})}">
+<body>
+<div class="Middle" th:fragment="content">
+    <div class="wrap">
+        <main class="Middle-main">
+            <h1 class="Middle-title">Корзина</h1>
+            <h3 th:if="${isCartEmpty}">Корзина пуста</h3>
+            <form th:if="${!isCartEmpty}" class="form Cart" action="#" method="post">
+                <th:block th:each="book : ${books}">
+                    <div th:replace="~{components/books/card_in_table :: cardInTable(${book}, cart, ${rateMap})}"></div>
+                </th:block>
+                <div class="Cart-total">
+                    <div class="Cart-block Cart-block_total">
+                        <strong class="Cart-title">Итого:</strong>
+                        <span class="Cart-price" th:text="${cartTotalPrice + ' р.'}"></span>
+                        <th:block th:if="${!(cartTotalPrice == cartTotalOldPrice)}">
+                            <span class="Cart-price_old" th:text="${cartTotalOldPrice + ' р.'}"></span>
+                        </th:block>
+                    </div>
+                    <div class="Cart-block">
+                        <a class="btn btn_success btn_md" href="/order.html">Купить</a>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+</html>

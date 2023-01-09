@@ -2,6 +2,7 @@ package com.example.FenrisBookShopApp.services.book;
 
 import com.example.FenrisBookShopApp.entities.book.BookEntity;
 import com.example.FenrisBookShopApp.repositories.book.BookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,7 +33,6 @@ public class BookService {
 
     public Page<BookEntity> getPageOfRecentBooks(int pageNumber, int limit) {
         LocalDateTime date = LocalDate.now().atStartOfDay().minusMonths(1);
-//        return bookRepository.findBooksRecent(date, PageRequest.of(pageNumber, limit));
         return bookRepository
                 .findBookEntitiesByPubDateGreaterThanOrderByPubDateDesc(date, PageRequest.of(pageNumber, limit));
     }
@@ -42,7 +42,12 @@ public class BookService {
     }
 
     public Page<BookEntity> getPageByGenreId(int pageNumber, int limit, @NotNull Long genreId) {
-        return bookRepository.getByGenreId(genreId, PageRequest.of(pageNumber, limit));
+        Page<BookEntity> books = bookRepository.getByGenreId(genreId, PageRequest.of(pageNumber, limit));
+        if (books.getSize() == 0) {
+            throw new EntityNotFoundException();
+        }
+
+        return books;
     }
 
 
@@ -69,5 +74,13 @@ public class BookService {
 
     public Page<BookEntity> getPageByTagId(int page, int limit, Long tagId) {
         return bookRepository.findBooksByTagId(tagId, PageRequest.of(page, limit));
+    }
+
+    public BookEntity findBookBySlug(String slug) {
+        return bookRepository.findBookEntityBySlug(slug);
+    }
+
+    public void save(BookEntity book) {
+        bookRepository.save(book);
     }
 }

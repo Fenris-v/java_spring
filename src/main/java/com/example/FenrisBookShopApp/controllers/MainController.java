@@ -4,8 +4,10 @@ import com.example.FenrisBookShopApp.entities.book.BookEntity;
 import com.example.FenrisBookShopApp.entities.other.TagEntity;
 import com.example.FenrisBookShopApp.services.book.BookService;
 import com.example.FenrisBookShopApp.services.tag.TagService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -42,8 +44,9 @@ public class MainController {
         return bookService.getPageOfPopularBooks(0, 20).getContent();
     }
 
-    @GetMapping(value = "", name = "app.main")
-    public String mainPage() {
+    @GetMapping(value = "/", name = "app.main")
+    public String mainPage(@NotNull Model model) {
+        model.addAttribute("isMainPage", true);
         return "index";
     }
 }

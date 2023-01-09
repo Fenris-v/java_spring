@@ -1,9 +1,9 @@
 package com.example.FenrisBookShopApp.entities.payments;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -19,7 +19,7 @@ public class BalanceTransactionEntity {
     @Column(columnDefinition = "INT NOT NULL")
     private int userId;
 
-    @Column(columnDefinition = "TIMESTAMP NOT NULL")
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private LocalDateTime time;
 
     @Column(columnDefinition = "INT NOT NULL  DEFAULT 0")
