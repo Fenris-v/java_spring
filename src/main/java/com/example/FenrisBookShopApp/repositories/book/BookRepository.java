@@ -34,4 +34,8 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
             "from BookEntity b left join DeferredBookEntity db on b.id = db.bookId left join CartEntity c on b.id = c.bookId " +
             "left join Book2UserEntity b2u on b.id = b2u.bookId group by b.id")
     List<BookPopularityDto> findAllWithBuyerAndDeferredAndCartCount();
+
+    BookEntity findBookEntityBySlug(String slug);
+
+    List<BookEntity> findBookEntitiesByIdIn(List<Long> ids);
 }

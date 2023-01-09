@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<button th:fragment="btn(book)" class="btn btn_primary btn_outline" data-sendstatus="KEPT"
+        data-alttext="Отложена"
+        th:attr="data-bookid=${book.id}" data-btntype="check" data-btnradio="buyblock" data-check="false">
+    <span class="btn-icon">
+        <img src="/assets/img/icons/heart.svg" alt="heart.svg"/>
+    </span>
+    <span class="btn-content">Отложить</span>
+</button>
+</body>
+</html>

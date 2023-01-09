@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::content}, #{title.authors})}">
+<body>
+<div class="Middle" th:fragment="content">
+    <div class="wrap">
+        <main class="Middle-main">
+            <h1 class="Middle-title" th:text="#{menu.authors}"></h1>
+            <div class="Section">
+                <div class="Authors">
+                    <div class="Authors-links">
+                        <a th:each="authorList : ${authorMap}" class="Authors-link"
+                           th:href="'#'+${#strings.toLowerCase(authorList.key)}"
+                           th:text="${#strings.toUpperCase(authorList.key)}"></a>
+                    </div>
+                    <div class="Authors-block" th:each="authorList, loop : ${authorMap}">
+                        <h2 class="Authors-title" th:id="${#strings.toLowerCase(authorList.key)}"
+                            th:style="${loop.index != 0 ? 'margin-top: 49px' : ''}"
+                            th:text="${#strings.toUpperCase(authorList.key)}"></h2>
+                        <div class="Authors-letter">
+                            <div class="Authors-item" th:each="author : ${authorList.value}">
+                                <a th:href="${#mvc.url('app.authors.show').arg(0, author.slug).build()}"
+                                   th:text="${author.name}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

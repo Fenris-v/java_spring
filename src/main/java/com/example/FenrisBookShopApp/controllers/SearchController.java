@@ -3,6 +3,7 @@ package com.example.FenrisBookShopApp.controllers;
 import com.example.FenrisBookShopApp.dto.SearchQueryDto;
 import com.example.FenrisBookShopApp.dto.book.BooksPageDto;
 import com.example.FenrisBookShopApp.entities.book.BookEntity;
+import com.example.FenrisBookShopApp.exceptions.EmptySearchException;
 import com.example.FenrisBookShopApp.services.book.BookService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class SearchController {
     }
 
     @ModelAttribute("searchQueryDto")
-    public SearchQueryDto searchQueryDto(@PathVariable(value = "query", required = false) @NotNull SearchQueryDto query) {
+    public SearchQueryDto searchQueryDto(@PathVariable(value = "query", required = false) SearchQueryDto query) {
         return query;
     }
 
@@ -30,22 +31,24 @@ public class SearchController {
             return Page.empty();
         }
 
-        return bookService.getPageOfSearchResultBooks(query.getQuery(), 0, 20);
+        return bookService.getPageOfSearchResultBooks(query.query(), 0, 20);
     }
 
     @GetMapping(value = {"search", "search/{query}"}, name = "app.search")
-    public String search() {
+    public String search(@PathVariable(required = false) String query) throws EmptySearchException {
+        if (query == null) {
+            throw new EmptySearchException();
+        }
+
         return "search/index";
     }
 
     @ResponseBody
     @GetMapping(value = "search/page/{query}", name = "api.search.page")
-    public BooksPageDto getNextPage(
-            @RequestParam("offset") int page,
-            @RequestParam("limit") int limit,
-            @PathVariable(value = "query") @NotNull SearchQueryDto searchQueryDto
-    ) {
-        return new BooksPageDto(bookService
-                .getPageOfSearchResultBooks(searchQueryDto.getQuery(), page, limit).getContent());
+    public BooksPageDto getNextPage(@RequestParam("offset") int page,
+                                    @RequestParam("limit") int limit,
+                                    @PathVariable(value = "query") @NotNull SearchQueryDto searchQueryDto) {
+        return new BooksPageDto(bookService.getPageOfSearchResultBooks(searchQueryDto.query(), page, limit)
+                .getContent());
     }
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="ProductCard-rating" th:fragment="rating(rating, countOfRates, ratesMap)">
+    <span class="ProductCard-titleProp">Рейтинг:</span>
+    <div class="trigger trigger_dropdown">
+        <div class="Rating Rating_noStyleLink">
+            <span class="Rating-stars" th:each="i : ${#numbers.sequence(1, 5)}">
+                <span th:replace="~{components/rating/star :: star(${i <= rating})}"></span>
+            </span>
+            <span class="Rating-title" th:text="${'(' + countOfRates + ')'}"></span>
+        </div>
+
+        <div class="modal modal_compression modal_dropdown">
+            <div class="modal-window">
+                <a class="modal-close" href="#"></a>
+                <strong class="modal-title">Распределение оценок</strong>
+                <div class="RatingGroup">
+                    <th:block th:each="rate : ${ratesMap}">
+                        <span class="Rating">
+                            <span class="Rating-stars" th:each="j : ${#numbers.sequence(1, 5)}">
+                                <span th:replace="~{components/rating/star :: star(${j <= (5 + 1 - rate.key)})}"></span>
+                            </span>
+                            <span class="Rating-title" th:text="${rate.key + '&nbsp;(' + rate.value + ')'}"></span>
+                        </span>
+                        <th:block th:unless="${rate.key == 5}">
+                            <br>
+                        </th:block>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -2,10 +2,10 @@ package com.example.FenrisBookShopApp.entities.genre;
 
 import com.example.FenrisBookShopApp.entities.book.BookEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

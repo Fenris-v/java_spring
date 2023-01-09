@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::content}, #{title.favorite})}">
+<body>
+<div class="Middle" th:fragment="content">
+    <div class="wrap">
+        <main class="Middle-main">
+            <h1 class="Middle-title">Отложенное</h1>
+            <th:block th:if="${books.isEmpty()}">
+                <h3>Отложенных книг нет</h3>
+            </th:block>
+            <th:block th:if="${!books.isEmpty()}">
+                <form class="form Cart Cart_postponed" action="#" method="post">
+                    <th:block th:each="book : ${books}">
+                        <div th:replace="~{components/books/card_in_table :: cardInTable(${book}, postponed, ${rateMap})}"></div>
+                    </th:block>
+                    <div class="Cart-total">
+                        <div class="Cart-block Cart-block_total"></div>
+                        <div class="Cart-block">
+                            <button class="btn btn_success btn_md Cart-buyAll" data-sendstatus="CART"
+                                    data-bookid="[1111, 1122, 1133]">Купить все
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </th:block>
+        </main>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="Cart-product" th:fragment="cardInTable(book, place, rateMap)">
+    <div class="Cart-block Cart-block_row">
+        <div class="Cart-block Cart-block_pict">
+            <a class="Cart-pict" th:href="${#mvc.url('app.books.detail').arg(0, book.slug).build()}">
+                <img class="Cart-img" th:src="${book.image}" alt="card.jpg"/>
+            </a>
+        </div>
+        <div class="Cart-block Cart-block_row">
+            <div class="Cart-block Cart-block_info">
+                <div class="Cart-author" th:each="author : ${book.authors}">
+                    <a th:href="${#mvc.url('app.authors.show').arg(0, author.slug).build()}"
+                       th:text="${author.name}"></a>
+                    <th:block th:unless="${book.authors.get(book.authors.size() - 1) == author}">,</th:block>
+                </div>
+                <div class="Cart-title">
+                    <a th:href="${#mvc.url('app.books.detail').arg(0, book.slug).build()}" th:text="${book.title}"></a>
+                </div>
+                <div class="Cart-rating">
+                    <span class="Rating">
+                        <span class="Rating-stars" th:each="i : ${#numbers.sequence(1, 5)}">
+                            <span th:replace="~{components/rating/star :: star(${i <= rateMap[book.id]})}"></span>
+                        </span>
+                    </span>
+                </div>
+                <div class="Cart-buttons">
+                    <th:block th:if="${place == 'postponed'}">
+                        <div class="Cart-btn">
+                            <th:block th:replace="~{components/btns/to_cart :: btn(${book})}"></th:block>
+                        </div>
+                        <div class="Cart-btn">
+                            <th:block th:replace="~{components/btns/remove_from_postponed :: btn(${book})}"></th:block>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${place == 'cart'}">
+                        <div class="Cart-btn">
+                            <th:block th:replace="~{components/btns/to_postponed :: btn(${book})}"></th:block>
+                        </div>
+                        <div class="Cart-btn">
+                            <th:block th:replace="~{components/btns/remove_from_cart :: btn(${book})}"></th:block>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+            <div class="Cart-block Cart-block_price">
+                <div class="Cart-priceTitle">Цена:</div>
+                <div class="Cart-price Cart-price_old" th:if="${book.priceWithDiscount}"
+                     th:text="${'₽' + (book.price)}"></div>
+                <div class="Cart-price" th:text="${'₽' + (book.priceWithDiscount ?: book.price)}"></div>
+                <div class="Cart-sale" th:text="${'-' + book.discount + '%'}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
