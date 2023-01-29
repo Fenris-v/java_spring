@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -82,5 +83,9 @@ public class BookService {
 
     public void save(BookEntity book) {
         bookRepository.save(book);
+    }
+
+    public List<BookEntity> findBooksByUserId(Long id) {
+        return bookRepository.findBookEntitiesByUserId(id);
     }
 }

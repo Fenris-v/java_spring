@@ -1,4 +1,4 @@
-package com.example.FenrisBookShopApp.config;
+package com.example.FenrisBookShopApp.config.filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

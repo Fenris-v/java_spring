@@ -52,8 +52,5 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <sqlFile path="db/changelog/sqlScripts/book_rates.sql"/>
-        <sqlFile path="db/changelog/sqlScripts/book_reviews.sql"/>
     </changeSet>
 </databaseChangeLog>

@@ -3,9 +3,11 @@ package com.example.FenrisBookShopApp.services.book;
 import com.example.FenrisBookShopApp.dto.book.BookAvgRateDto;
 import com.example.FenrisBookShopApp.dto.book.RateDto;
 import com.example.FenrisBookShopApp.entities.book.review.BookRateEntity;
+import com.example.FenrisBookShopApp.entities.user.UserEntity;
 import com.example.FenrisBookShopApp.repositories.book.BookRateRepository;
+import com.example.FenrisBookShopApp.services.security.AuthenticationService;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -13,17 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class RateService {
     private final BookRateRepository bookRateRepository;
+    private final AuthenticationService authenticationService;
 
-    @Autowired
-    public RateService(BookRateRepository bookRateRepository) {
-        this.bookRateRepository = bookRateRepository;
-    }
-
-    // todo: изменить юзер_ид, когда будет авторизация
     public boolean rate(@NotNull RateDto rateDto) {
-        Long userId = 1L;
+        Long userId = authenticationService.getCurrentUser().getId();
         BookRateEntity bookRate = bookRateRepository.findBookRateEntityByBookIdAndUserId(rateDto.getBookId(), userId);
         if (bookRate == null) {
             bookRate = new BookRateEntity();
@@ -36,8 +34,8 @@ public class RateService {
         return true;
     }
 
-    public BookRateEntity findBookRateEntityByBookIdAndUserId(Long bookId, Long userId) {
-        return bookRateRepository.findBookRateEntityByBookIdAndUserId(bookId, userId);
+    public BookRateEntity findBookRateEntityByBookIdAndUser(Long bookId, UserEntity user) {
+        return user == null ? null : bookRateRepository.findBookRateEntityByBookIdAndUserId(bookId, user.getId());
     }
 
     public Map<Byte, Long> getRatesCountMap(Long bookId) {
@@ -48,7 +46,6 @@ public class RateService {
 
         bookRateRepository.getCountOfGroupedRate(bookId)
                 .forEach(rateDto -> groupedRatesCount.put(rateDto.getValue(), rateDto.getCount()));
-
         return groupedRatesCount;
     }
 

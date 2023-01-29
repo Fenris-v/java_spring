@@ -1,6 +1,8 @@
 package com.example.FenrisBookShopApp.entities.user;
 
+import com.example.FenrisBookShopApp.entities.book.BookEntity;
 import com.example.FenrisBookShopApp.entities.book.review.BookRateEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,19 +20,27 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String hash;
+    private String name;
+    private String email;
+    private String phone;
+    private String password;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
-    private LocalDateTime regTime;
+    private LocalDateTime regTime = LocalDateTime.now();
 
     @Column(columnDefinition = "INT NOT NULL")
     private int balance;
 
-    @Column(columnDefinition = "VARCHAR(255) NOT NULL")
-    private String name;
-
     @OneToMany
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<BookRateEntity> rates = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "book2user",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id")
+    )
+    @JsonBackReference
+    private List<BookEntity> books = new ArrayList<>();
 }

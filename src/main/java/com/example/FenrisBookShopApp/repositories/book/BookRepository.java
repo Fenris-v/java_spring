@@ -38,4 +38,8 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
     BookEntity findBookEntityBySlug(String slug);
 
     List<BookEntity> findBookEntitiesByIdIn(List<Long> ids);
+
+    @Query("select b from BookEntity b left join Book2UserEntity b2u on b.id = b2u.bookId " +
+            "where b2u.userId = ?1 order by b2u.time desc")
+    List<BookEntity> findBookEntitiesByUserId(Long id);
 }

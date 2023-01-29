@@ -17,8 +17,6 @@
             </column>
         </createTable>
 
-        <sqlFile path="db/changelog/sqlScripts/authors.sql"/>
-
         <createTable tableName="book_files">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="book_files_pkey"/>

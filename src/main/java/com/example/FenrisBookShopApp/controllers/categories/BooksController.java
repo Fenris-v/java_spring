@@ -5,8 +5,9 @@ import com.example.FenrisBookShopApp.entities.book.BookEntity;
 import com.example.FenrisBookShopApp.entities.book.review.BookRateEntity;
 import com.example.FenrisBookShopApp.services.book.BookService;
 import com.example.FenrisBookShopApp.services.book.RateService;
+import com.example.FenrisBookShopApp.services.security.AuthenticationService;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +19,13 @@ import java.io.IOException;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("books")
 public class BooksController {
     private final BookService bookService;
     private final RateService rateService;
     private final ResourceStorage resourceStorage;
-
-    @Autowired
-    public BooksController(BookService bookService, RateService rateService, ResourceStorage resourceStorage) {
-        this.bookService = bookService;
-        this.rateService = rateService;
-        this.resourceStorage = resourceStorage;
-    }
+    private final AuthenticationService authenticationService;
 
     @GetMapping(value = "recent", name = "app.new_book.list", produces = MediaType.TEXT_HTML_VALUE)
     public String recent(@NotNull Model model) {
@@ -45,11 +41,11 @@ public class BooksController {
         return "books/popular";
     }
 
-    // todo: изменить юзер_ид, когда будет авторизация
     @GetMapping(value = "{slug}", name = "app.books.detail")
     public String book(@PathVariable String slug, @NotNull Model model) {
         BookEntity book = bookService.findBookBySlug(slug);
-        BookRateEntity rateByUser = rateService.findBookRateEntityByBookIdAndUserId(book.getId(), 1L);
+        BookRateEntity rateByUser = rateService.findBookRateEntityByBookIdAndUser(book.getId(),
+                authenticationService.getCurrentUser());
         Map<Byte, Long> ratesMap = rateService.getRatesCountMap(book.getId());
         model.addAttribute("book", book);
         model.addAttribute("rateByUser", rateByUser == null ? 0 : rateByUser.getValue());

@@ -10,4 +10,7 @@
     <include file="db/changelog/migrations/002_changeLog_update_books_table.xml"/>
     <include file="db/changelog/migrations/003_changeLog_tags.xml"/>
     <include file="db/changelog/migrations/004_changeLog_rate_reviews.xml"/>
+    <include file="db/changelog/migrations/005_changeLog_update_users_table.xml"/>
+    <include file="db/changelog/migrations/006_changeLog_create_jwt_blacklists_table.xml"/>
+    <include file="db/changelog/migrations/999_changeLog_seeding.xml"/>
 </databaseChangeLog>

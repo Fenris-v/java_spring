@@ -43,8 +43,5 @@
                                  constraintName="book2tag_tags_id_fk" deferrable="false"
                                  initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="tags" validate="true"/>
-
-        <sqlFile path="db/changelog/sqlScripts/tags.sql"/>
-        <sqlFile path="db/changelog/sqlScripts/book2tag.sql"/>
     </changeSet>
 </databaseChangeLog>

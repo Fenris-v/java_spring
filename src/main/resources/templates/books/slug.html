@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:replace="~{fragments/layout :: layout(~{::content}, #{title.newBooks})}">
 <body>
 <div class="Middle" th:fragment="content">
@@ -40,7 +41,7 @@
                                 </th:block>
                             </div>
                             <div th:replace="~{components/rating/rating :: rating(${avgRate}, ${countOfRates}, ${rateMap})}"></div>
-                            <div class="ProductCard-assessment">
+                            <div sec:authorize="isAuthenticated()" class="ProductCard-assessment">
                                 <span class="ProductCard-titleProp">Оцените книгу:</span>
                                 <span class="Rating Rating_input" th:attr="data-bookid=${book.id}">
                                     <th:block th:each="i : ${#numbers.sequence(1, 5)}">
