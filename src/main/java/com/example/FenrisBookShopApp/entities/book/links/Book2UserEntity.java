@@ -21,9 +21,9 @@ public class Book2UserEntity {
     @Column(columnDefinition = "INT NOT NULL")
     private Long typeId;
 
-    @Column(columnDefinition = "INT NOT NULL")
+    @Column(name = "book_id", columnDefinition = "INT NOT NULL")
     private Long bookId;
 
-    @Column(columnDefinition = "INT NOT NULL")
+    @Column(name = "user_id", columnDefinition = "INT NOT NULL")
     private Long userId;
 }

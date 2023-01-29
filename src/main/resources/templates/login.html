@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::content}, #{title.signIn})}">
+<body>
+<div class="Middle Middle_form" th:fragment="content">
+    <div class="Middle-top">
+        <div class="wrap">
+            <h1 class="Middle-title">Вход</h1>
+        </div>
+    </div>
+    <div class="wrap">
+        <main class="Middle-main">
+            <form class="form Login" th:action="${#mvc.url('app.login').build()}" method="post">
+                <div class="Login-ins">
+                    <div class="Login-step">
+                        <div class="form-group">
+                            <label class="form-label Login-title">
+                                Введите e-mail и пароль
+                                <br>
+                                <span th:if="${registerOk}">Регистрация прошла успешно!</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="username"></label>
+                            <input class="form-input" id="username" name="username" type="text"
+                                   placeholder="Введите e-mail" data-validate="mail require"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"></label>
+                            <input class="form-input" id="password" name="password" type="password" placeholder="Пароль"
+                                   data-validate="require"/>
+                        </div>
+                        <div class="form-group form-group_center">
+                            <button class="btn btn_primary form-btn" type="submit">Войти</button>
+                        </div>
+                        <div class="form-group form-group_center">
+                            <a class="Login-reg" th:href="${#mvc.url('app.register').build()}">Зарегистрироваться</a>
+                        </div>
+                        <div class="form-group form-group_center">
+                            <a class="Login-reg" th:href="@{/oauth2/authorization/facebook}">Войти с Facebook</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+</html>

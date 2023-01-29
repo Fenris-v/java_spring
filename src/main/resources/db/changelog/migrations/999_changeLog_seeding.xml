@@ -1,0 +1,20 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="fenris" id="999">
+        <sqlFile path="db/changelog/sqlScripts/authors.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/genres.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/books.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/book2author.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/book2genre.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/tags.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/book2tag.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/users.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/book2user.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/deferred_books.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/carts.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/book_rates.sql"/>
+        <sqlFile path="db/changelog/sqlScripts/book_reviews.sql"/>
+    </changeSet>
+</databaseChangeLog>

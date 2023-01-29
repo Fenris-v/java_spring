@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div class="Comments" th:fragment="comments(reviews, book)">
-    <div th:replace="~{components/comments/comment_form :: commentForm(${book})}"></div>
+    <div sec:authorize="isAuthenticated()"
+         th:replace="~{components/comments/comment_form :: commentForm(${book})}"></div>
 
     <div class="Comment" th:each="review : ${reviews}">
         <div class="Comment-column Comment-column_pict">

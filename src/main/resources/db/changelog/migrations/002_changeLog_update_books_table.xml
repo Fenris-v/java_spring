@@ -8,12 +8,5 @@
                 <constraints nullable="false"/>
             </column>
         </addColumn>
-
-        <sqlFile path="db/changelog/sqlScripts/books.sql"/>
-        <sqlFile path="db/changelog/sqlScripts/book2author.sql"/>
-        <sqlFile path="db/changelog/sqlScripts/book2user.sql"/>
-        <sqlFile path="db/changelog/sqlScripts/book2genre.sql"/>
-        <sqlFile path="db/changelog/sqlScripts/deferred_books.sql"/>
-        <sqlFile path="db/changelog/sqlScripts/carts.sql"/>
     </changeSet>
 </databaseChangeLog>

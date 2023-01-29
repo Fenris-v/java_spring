@@ -4,6 +4,7 @@ import com.example.FenrisBookShopApp.entities.book.review.BookRateEntity;
 import com.example.FenrisBookShopApp.entities.book.review.BookReviewEntity;
 import com.example.FenrisBookShopApp.entities.genre.GenreEntity;
 import com.example.FenrisBookShopApp.entities.other.TagEntity;
+import com.example.FenrisBookShopApp.entities.user.UserEntity;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -49,6 +50,9 @@ public class BookEntity {
     @OrderBy("time desc")
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private List<BookReviewEntity> reviews = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "books")
+    private List<UserEntity> users = new ArrayList<>();
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private LocalDateTime pubDate;

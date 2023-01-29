@@ -10,7 +10,7 @@
             <column name="hash" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="reg_time" type="DATETIME">
+            <column name="reg_time" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="balance" type="BIGINT" defaultValue="0">
@@ -20,8 +20,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <sqlFile path="db/changelog/sqlScripts/users.sql"/>
 
         <createTable tableName="book2user">
             <column autoIncrement="true" name="id" type="BIGINT">
@@ -110,8 +108,6 @@
                 <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
-
-        <sqlFile path="db/changelog/sqlScripts/genres.sql"/>
 
         <createTable tableName="book2genre">
             <column autoIncrement="true" name="id" type="BIGINT">
