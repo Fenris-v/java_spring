@@ -1,6 +1,6 @@
 package com.example.FenrisBookShopApp.config.filters;
 
-import com.example.FenrisBookShopApp.services.security.BookStoreUserDetails;
+import com.example.FenrisBookShopApp.dto.security.BookStoreUserDetails;
 import com.example.FenrisBookShopApp.services.security.BookStoreUserDetailsService;
 import com.example.FenrisBookShopApp.utils.jwt.JwtUtils;
 import io.jsonwebtoken.ExpiredJwtException;

@@ -20,7 +20,7 @@ public class RateService {
     private final BookRateRepository bookRateRepository;
     private final AuthenticationService authenticationService;
 
-    public boolean rate(@NotNull RateDto rateDto) {
+    public BookRateEntity rate(@NotNull RateDto rateDto) {
         Long userId = authenticationService.getCurrentUser().getId();
         BookRateEntity bookRate = bookRateRepository.findBookRateEntityByBookIdAndUserId(rateDto.getBookId(), userId);
         if (bookRate == null) {
@@ -31,7 +31,7 @@ public class RateService {
 
         bookRate.setValue(rateDto.getValue());
         bookRateRepository.save(bookRate);
-        return true;
+        return bookRate;
     }
 
     public BookRateEntity findBookRateEntityByBookIdAndUser(Long bookId, UserEntity user) {

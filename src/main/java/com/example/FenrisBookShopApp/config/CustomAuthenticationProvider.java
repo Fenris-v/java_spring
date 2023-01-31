@@ -1,7 +1,7 @@
 package com.example.FenrisBookShopApp.config;
 
+import com.example.FenrisBookShopApp.dto.security.BookStoreUserDetails;
 import com.example.FenrisBookShopApp.dto.security.ContactConfirmationResponse;
-import com.example.FenrisBookShopApp.services.security.BookStoreUserDetails;
 import com.example.FenrisBookShopApp.services.security.BookStoreUserDetailsService;
 import com.example.FenrisBookShopApp.utils.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;

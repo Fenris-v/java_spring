@@ -1,6 +1,7 @@
 package com.example.FenrisBookShopApp.controllers;
 
 import com.example.FenrisBookShopApp.dto.book.RateDto;
+import com.example.FenrisBookShopApp.entities.book.review.BookRateEntity;
 import com.example.FenrisBookShopApp.services.book.RateService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class RateController {
     @ResponseBody
     @PostMapping(value = "rateBook")
     public HashMap<String, Boolean> rateBook(@Valid RateDto rateDto) {
-        boolean rateUpdated = rateService.rate(rateDto);
+        BookRateEntity bookRate = rateService.rate(rateDto);
         HashMap<String, Boolean> response = new HashMap<>();
-        response.put("result", rateUpdated);
+        response.put("result", bookRate != null);
 
         return response;
     }
