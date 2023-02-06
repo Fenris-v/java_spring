@@ -1,5 +1,6 @@
 package com.example.FenrisBookShopApp.controllers;
 
+import com.example.FenrisBookShopApp.annotations.Loggable;
 import com.example.FenrisBookShopApp.entities.book.BookEntity;
 import com.example.FenrisBookShopApp.entities.other.TagEntity;
 import com.example.FenrisBookShopApp.services.book.BookService;
@@ -45,6 +46,7 @@ public class MainController {
     }
 
     @GetMapping(value = "/", name = "app.main")
+    @Loggable
     public String mainPage(@NotNull Model model) {
         model.addAttribute("isMainPage", true);
         return "index";
