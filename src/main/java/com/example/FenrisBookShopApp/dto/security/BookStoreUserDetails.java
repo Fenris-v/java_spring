@@ -1,4 +1,4 @@
-package com.example.FenrisBookShopApp.services.security;
+package com.example.FenrisBookShopApp.dto.security;
 
 import com.example.FenrisBookShopApp.entities.user.UserEntity;
 import lombok.Getter;

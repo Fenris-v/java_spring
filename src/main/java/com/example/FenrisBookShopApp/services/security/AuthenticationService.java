@@ -1,5 +1,6 @@
 package com.example.FenrisBookShopApp.services.security;
 
+import com.example.FenrisBookShopApp.dto.security.BookStoreUserDetails;
 import com.example.FenrisBookShopApp.dto.security.ContactConfirmationResponse;
 import com.example.FenrisBookShopApp.dto.security.LoginPayload;
 import com.example.FenrisBookShopApp.dto.security.RegistrationForm;
@@ -24,15 +25,18 @@ public class AuthenticationService {
     private final BookStoreUserDetailsService bookStoreUserDetailsService;
     private final JwtUtils jwtUtils;
 
-    public void registerNewUser(@NotNull RegistrationForm registrationForm) {
-        if (UserRepository.findUserByEmail(registrationForm.getEmail()) == null) {
-            UserEntity user = new UserEntity();
-            user.setName(registrationForm.getName());
-            user.setEmail(registrationForm.getEmail());
-            user.setPhone(registrationForm.getPhone());
-            user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
-            UserRepository.save(user);
+    public UserEntity registerNewUser(@NotNull RegistrationForm registrationForm) {
+        if (UserRepository.findUserByEmail(registrationForm.getEmail()) != null) {
+            return null;
         }
+
+        UserEntity user = new UserEntity();
+        user.setName(registrationForm.getName());
+        user.setEmail(registrationForm.getEmail());
+        user.setPhone(registrationForm.getPhone());
+        user.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
+        UserRepository.save(user);
+        return user;
     }
 
     public ContactConfirmationResponse jwtLogin(@NotNull LoginPayload payload) {

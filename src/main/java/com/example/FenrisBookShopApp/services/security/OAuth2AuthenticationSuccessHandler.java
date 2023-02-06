@@ -1,5 +1,6 @@
 package com.example.FenrisBookShopApp.services.security;
 
+import com.example.FenrisBookShopApp.dto.security.BookStoreUserDetails;
 import com.example.FenrisBookShopApp.entities.user.UserEntity;
 import com.example.FenrisBookShopApp.repositories.UserRepository;
 import com.example.FenrisBookShopApp.utils.jwt.JwtUtils;
